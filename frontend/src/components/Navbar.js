@@ -1,10 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
+import { useAppContext } from '../AppProvider';
 
-export const Navbar = (props) => {
-  const [sesion, setSesion] = useState(props.sesion);
+export const Navbar = () => {
+  const {session, dispatch} = useAppContext()
+  console.log(session.session);
+  const [sesion, setSesion] = useState(session.session !== undefined);
+  console.log(sesion)
+  useEffect(() => {
+    console.log('pene');
+    setSesion(session.session !== undefined);
+    console.log(sesion)
+  },[session.session])
+
+  console.log(sesion)
   function handlerLogin(){
-    sessionStorage.removeItem('login');
+    const login = {
+      session: ''
+    };
+    dispatch({
+      type: 'CHANGE_SESSION',
+      value: login
+    })
+    setSesion('')
     window.location.href = '/'
   }
   return (

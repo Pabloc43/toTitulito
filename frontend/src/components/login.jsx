@@ -1,10 +1,14 @@
 import React from 'react';
 import { useState, useRef} from 'react';
+import { BrowserRouter, Router } from 'react-router-dom';
+import { useAppContext } from '../AppProvider';
 
 
 const API = process.env.REACT_APP_API;
 
 export default function Registro() {
+  const {session, dispatch} = useAppContext();
+  const [sessionLocal, setSessionLocal] = useState(false)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const emailInput = useRef(null);
@@ -24,8 +28,15 @@ export default function Registro() {
           }),
         });
         let logueado = await res.json();
-        sessionStorage.setItem('login', logueado.user)
-        window.location.href = '/gestion'
+        console.log(logueado)
+        const login = {
+          session: logueado
+        };
+        dispatch({
+          type: 'CHANGE_SESSION',
+          value: login
+        })
+        //window.location.href = '/gestion'
       }
       catch (e) {
         alert('Las credenciales no son validas');
@@ -66,6 +77,7 @@ export default function Registro() {
             />
             <label htmlFor='password'>Password</label>
           </div>
+          
             <button type='submit' className="btn btn-primary btn-block">
               Login
             </button>

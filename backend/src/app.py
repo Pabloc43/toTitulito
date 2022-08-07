@@ -16,6 +16,7 @@ CORS(app)
 db = mongo.db.users
 
 # Routes
+# Create user
 @app.route('/users', methods=['POST'])
 def createUser():
   print(request.json)
@@ -27,7 +28,7 @@ def createUser():
   print(id.inserted_id)
   return jsonify(str(id.inserted_id))
 
-
+# Read users
 @app.route('/users', methods=['GET'])
 def getUsers():
     users = []
@@ -40,6 +41,7 @@ def getUsers():
         })
     return jsonify(users)
 
+# Read user for id
 @app.route('/users/<id>', methods=['GET'])
 def getUser(id):
   user = db.find_one({'_id': ObjectId(id)})
@@ -51,12 +53,7 @@ def getUser(id):
       'password': user['password']
   })
 
-
-@app.route('/users/<id>', methods=['DELETE'])
-def deleteUser(id):
-  db.delete_one({'_id': ObjectId(id)})
-  return jsonify({'message': 'User Deleted'})
-
+# Update user
 @app.route('/users/<id>', methods=['PUT'])
 def updateUser(id):
   print(request.json)
@@ -66,6 +63,21 @@ def updateUser(id):
     'password': request.json['password']
   }})
   return jsonify({'message': 'User Updated'})
+
+# Delete user
+@app.route('/users/<id>', methods=['DELETE'])
+def deleteUser(id):
+  db.delete_one({'_id': ObjectId(id)})
+  return jsonify({'message': 'User Deleted'})
+
+
+# Login
+@app.route('/login', methods=['POST'])
+def getLogin():
+  user = db.find_one({'email': request.json['email'],
+                      'password': request.json['password']})
+  return jsonify(str(ObjectId(user['_id'])))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
