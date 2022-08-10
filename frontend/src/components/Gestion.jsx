@@ -1,7 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
 
 export default function Gestion() {
+  console.log('id:   ' + cookies.get('id'))
   return (
     <div>
         <Link to="/subir" className='btn btn-outline-warning m-2 text-dark'>Subir</Link>

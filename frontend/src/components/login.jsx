@@ -2,9 +2,11 @@ import React from 'react';
 import { useState, useRef} from 'react';
 import { BrowserRouter, Router } from 'react-router-dom';
 import { useAppContext } from '../AppProvider';
+import Cookies from 'universal-cookie';
 
 
 const API = process.env.REACT_APP_API;
+const cookies = new Cookies();
 
 export default function Registro() {
   const {session, dispatch} = useAppContext();
@@ -35,7 +37,8 @@ export default function Registro() {
         dispatch({
           type: 'CHANGE_SESSION',
           value: login
-        })
+        });
+        cookies.set('id', logueado, {path: '/'});
         //window.location.href = '/gestion'
       }
       catch (e) {

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import { useAppContext } from '../AppProvider';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 export const Navbar = () => {
   const {session, dispatch} = useAppContext()
@@ -23,7 +26,8 @@ export const Navbar = () => {
       value: login
     })
     setSesion('')
-    window.location.href = '/'
+    cookies.remove('id', {path: '/'})
+    window.location.href = './'
   }
   return (
   <nav className="navbar navbar-expand-lg navbar-light bg-light">

@@ -1,10 +1,12 @@
 import React from 'react'
 import { useState, useRef } from 'react';
-
+import Cookies from 'universal-cookie';
 
 const API = process.env.REACT_APP_API;
+const cookies = new Cookies()
 
 export default function Registro() {
+  console.log('culo   ' + cookies.get('id'))
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
