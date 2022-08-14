@@ -1,10 +1,12 @@
 import React, { useReducer } from 'react';
 import { useContext } from 'react';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies()
 
 const AppContext = React.createContext();
 const initialState = {
-    session: '',
+    session: cookies?.get('id'),
     productos: [],
     presupuesto: 200
 };

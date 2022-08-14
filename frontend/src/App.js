@@ -8,18 +8,20 @@ import Inicio from "./components/Pres";
 import Gestion from "./components/Gestion";
 import Subir from "./components/Subir";
 import { useAppContext } from "./AppProvider";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
+
 
 
 function App() {
   const {session} = useAppContext();
-  console.log(session.session)
-  const [sesion, setSesion] = useState(session.session !== undefined);
-  console.log(sesion)
+  const [sesion, setSesion] = useState(session);
+  console.log('id:   ' + cookies.get('id'))
+
   useEffect(()=>{
-    console.log(session.session)
-    setSesion(session.session !== undefined);
-    console.log(sesion)
-  }, [session.session])
+    setSesion(session);
+  }, [session])
 
   return (
     
@@ -36,9 +38,13 @@ function App() {
               <Redirect to={'/gestion'}>
               </Redirect>
             </> : 
+            <>
               <Route path="/">
                 <Inicio></Inicio>
               </Route>
+              <Redirect to={'/'}>
+              </Redirect>
+            </>
             }
           </Switch>
         </div>

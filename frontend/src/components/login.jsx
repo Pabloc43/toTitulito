@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useRef} from 'react';
-import { BrowserRouter, Router } from 'react-router-dom';
 import { useAppContext } from '../AppProvider';
 import Cookies from 'universal-cookie';
 
@@ -30,7 +29,6 @@ export default function Registro() {
           }),
         });
         let logueado = await res.json();
-        console.log(logueado)
         const login = {
           session: logueado
         };

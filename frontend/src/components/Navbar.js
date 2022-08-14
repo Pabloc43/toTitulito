@@ -7,14 +7,11 @@ const cookies = new Cookies()
 
 export const Navbar = () => {
   const {session, dispatch} = useAppContext()
-  console.log(session.session);
-  const [sesion, setSesion] = useState(session.session !== undefined);
-  console.log(sesion)
+  const [sesion, setSesion] = useState(session);
+  console.log(session)
   useEffect(() => {
-    console.log('pene');
-    setSesion(session.session !== undefined);
-    console.log(sesion)
-  },[session.session])
+    setSesion(session);
+  },[session])
 
   console.log(sesion)
   function handlerLogin(){
@@ -23,11 +20,10 @@ export const Navbar = () => {
     };
     dispatch({
       type: 'CHANGE_SESSION',
-      value: login
-    })
+      value: login.session
+    });
     setSesion('')
-    cookies.remove('id', {path: '/'})
-    window.location.href = './'
+    cookies.remove('id', {path: '/'});
   }
   return (
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
