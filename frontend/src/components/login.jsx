@@ -7,9 +7,8 @@ import Cookies from 'universal-cookie';
 const API = process.env.REACT_APP_API;
 const cookies = new Cookies();
 
-export default function Registro() {
-  const {session, dispatch} = useAppContext();
-  const [sessionLocal, setSessionLocal] = useState(false)
+export default function Login() {
+  const {dispatch} = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const emailInput = useRef(null);
@@ -41,7 +40,7 @@ export default function Registro() {
       }
       catch (e) {
         alert('Las credenciales no son validas');
-        console.error(e)
+        console.log(e)
       }
   };
 

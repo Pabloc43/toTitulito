@@ -17,7 +17,6 @@ const cookies = new Cookies();
 function App() {
   const {session} = useAppContext();
   const [sesion, setSesion] = useState(session);
-  console.log('id:   ' + cookies.get('id'))
 
   useEffect(()=>{
     setSesion(session);

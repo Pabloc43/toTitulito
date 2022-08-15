@@ -8,12 +8,10 @@ const cookies = new Cookies()
 export const Navbar = () => {
   const {session, dispatch} = useAppContext()
   const [sesion, setSesion] = useState(session);
-  console.log(session)
   useEffect(() => {
     setSesion(session);
   },[session])
 
-  console.log(sesion)
   function handlerLogin(){
     const login = {
       session: ''

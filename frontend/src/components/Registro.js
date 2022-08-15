@@ -1,18 +1,20 @@
 import React from 'react'
 import { useState, useRef } from 'react';
+import { useAppContext } from '../AppProvider';
 import Cookies from 'universal-cookie';
 
 const API = process.env.REACT_APP_API;
 const cookies = new Cookies()
 
 export default function Registro() {
-  console.log('culo   ' + cookies.get('id'))
+  const {dispatch} = useAppContext();
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   let excepcion;
+  let usuarioExiste;
 
 
   const nameInput = useRef(null);
@@ -30,64 +32,53 @@ export default function Registro() {
 
       if (condiciones[clave].length < 4){        
         excepcion = `El campo ${clave} no es correcto`;
-        return
+        return false;
       }
     }
-    excepcion = 'Las contraseñas no coinciden'
+    excepcion = 'Las contraseñas no coinciden';
+    return false;
   }
 
   function registro(name, lastName, email, password, password2){
-    return (name.length >= 4 && lastName.length >= 4 && email.length >= 4 && password2 === password ? 
+    return (name.length >= 4 && lastName.length >= 4 && email.length >= 4 && password2 === password && password >= 4 ? 
       true : registroFail(name, lastName, email, password)) 
   }
 
 
-  const nuevoUsuario = async () => {
-    try{
-      const res = await fetch(`${API}/usuario/${email}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      let logueado = await res.json();
-      console.log(logueado)
-      return !logueado
-    }
-    catch {
-      return true
-    }
-};
   const handleSubmit = async (e) => {
-    if ( registro(name, lastName, email, password, password2) && nuevoUsuario()){
-      e.preventDefault();
-      const res = await fetch(`${API}/usuarios`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          lastName,
-          email,
-          password,
-        }),
-      });
-      await res.json();
+    e.preventDefault()
+    if ( registro(name, lastName, email, password, password2)){
+      usuarioExiste = await (await fetch(`${API}/user/${email}`)).json()
+      console.log(usuarioExiste);
+      if (!usuarioExiste) {
+        const res = await fetch(`${API}/users`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            lastName,
+            email,
+            password,
+          }),
+        });
+        let sesion = await res.json();
+        console.log(sesion)
+      } else if (usuarioExiste && email !== '') {
+        alert('Este mail ya tiene una cuenta asociada');
+        nameInput.current.focus();
+        setEmail("");
+        setPassword("");
+        setPassword2("")
+      } 
+        
 
-    setName("");
-    setEmail("");
-    setPassword("");
-    setLastName("")
-    sessionStorage.setItem('login', email);
-    window.location.href = '/gestion'
-    nameInput.current.focus();
-    } else if (nuevoUsuario()) {
-      alert('Este mail ya tiene una cuenta asociada')
-    }
-    else {
+    } else {
+      nameInput.current.focus();
       alert(excepcion)
-      e.preventDefault()
+      setPassword("");
+      setPassword2("")
     }
     
   };

@@ -22,6 +22,7 @@ def createUser():
   print(request.json)
   id = db.insert_one({
     'name': request.json['name'],
+    'lastName': request.json['lastName'],
     'email': request.json['email'],
     'password': request.json['password']
   })
@@ -52,6 +53,18 @@ def getUser(id):
       'email': user['email'],
       'password': user['password']
   })
+
+# Read user for email
+@app.route('/user/<email>', methods=['GET'])
+def getUserEmail(email):
+  user = db.find_one({'email': email})
+  print(user)
+  if user != None:
+      return jsonify(True)
+  else:
+      return jsonify(False)
+
+
 
 # Update user
 @app.route('/users/<id>', methods=['PUT'])
