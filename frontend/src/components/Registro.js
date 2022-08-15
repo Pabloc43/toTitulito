@@ -64,7 +64,14 @@ export default function Registro() {
           }),
         });
         let sesion = await res.json();
-        console.log(sesion)
+        const login = {
+          session: sesion
+        };
+        dispatch({
+          type: 'CHANGE_SESSION',
+          value: login
+        });
+        cookies.set('id', sesion, {path: '/'});
       } else if (usuarioExiste && email !== '') {
         alert('Este mail ya tiene una cuenta asociada');
         nameInput.current.focus();
