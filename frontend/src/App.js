@@ -33,7 +33,9 @@ function App() {
             {sesion ? 
             <>
               <Route path="/gestion" component={Gestion} />
-              <Route path="/subir" component={Subir}></Route>
+              <Route path="/subir" component={Subir} />
+              <Route path="/ver" component={Subir} />
+              <Route path="/administrar" component={Subir} />
               <Redirect to={'/gestion'}>
               </Redirect>
             </> : 

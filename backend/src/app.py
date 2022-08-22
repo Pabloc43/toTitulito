@@ -4,10 +4,19 @@ from flask_cors import CORS
 
 from bson import ObjectId
 
+#PROBANDO ALGO 1
+from files import routes_files
+
+#CIERRE PRUEBA1
+
 # Instantiation
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/toTitulito'
 mongo = PyMongo(app)
+
+#PROBANDO ALGO 1
+app.register_blueprint(routes_files)
+# CIERRE PRUEBA1
 
 # Settings
 CORS(app)

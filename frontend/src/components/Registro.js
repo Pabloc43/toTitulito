@@ -48,7 +48,7 @@ export default function Registro() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if ( registro(name, lastName, email, password, password2)){
-      usuarioExiste = await (await fetch(`${API}/user/${email}`)).json()
+      usuarioExiste = await (await fetch(`${API}/user/${email}`)).json();
       console.log(usuarioExiste);
       if (!usuarioExiste) {
         const res = await fetch(`${API}/users`, {

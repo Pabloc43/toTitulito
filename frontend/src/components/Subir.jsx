@@ -5,7 +5,7 @@ import { useState, useRef } from 'react';
 const API = process.env.REACT_APP_API;
 
 export default function Subir() {
-    const [imagen, setImagen] = useState('')
+  const [imagen, setImagen] = useState('')
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -153,6 +153,9 @@ export default function Subir() {
         <form onSubmit={handleSubmit} className="card-body px-5 text-center">
           <h2 className="fw-bold text-uppercase">Subir</h2>
           <div className="form-outline form-white">
+          <label className="form-label w-100 text-left" htmlFor="name">
+                  Nombre del titulo:
+          </label>
             <input
               type="text"
               onChange={(e) => setName(e.target.value)}
@@ -163,12 +166,13 @@ export default function Subir() {
               ref={nameInput}
               autoFocus
             />
-            <label className="form-label" htmlFor="name">
-                  Name
-            </label>
           </div>
-          <div className="form-outline form-white">
+          <div className="form-outline form-white my-3">
+          <label className="form-label w-100 text-left" htmlFor="duracion">
+                  Duracion:
+          </label>
             <input
+              id='duracion'
               type="text"
               onChange={(e) => setLastName(e.target.value)}
               value={lastName}
@@ -176,17 +180,24 @@ export default function Subir() {
               placeholder="Duracion"
             />
           </div>          
-          <div className="form-outline form-white">
-            <input
-              type="text"
+          <div className="form-outline form-white my-3">
+            <label className="form-label w-100 text-left" htmlFor="descripcion">
+                  Descripcion
+            </label>
+            <textarea
+            id='descripcion'
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               className="form-control"
               placeholder="Descripcion"
-            />
+            ></textarea>
           </div>
-          <div className="form-outline form-white">
+          <div className="form-outline form-white my-3">
+            <label className="form-label w-100 text-left" htmlFor="institucion">
+                  Institucion
+            </label>
             <input
+            id='institucion'
               type="text"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -194,9 +205,12 @@ export default function Subir() {
               placeholder="Institucion"
             />
           </div>
-          <div className="form-group">
+          <div className="form-group my-3">
+            <label className="form-label w-100 text-left" htmlFor="anio">
+                  Anio de finalizacion
+            </label>
             <input
-              type="text"
+              type="date"
               onChange={(e) => setPassword2(e.target.value)}
               value={password2}
               className="form-control"

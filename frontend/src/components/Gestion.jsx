@@ -8,8 +8,8 @@ export default function Gestion() {
   return (
     <div>
         <Link to="/subir" className='btn btn-outline-warning m-2 text-dark'>Subir</Link>
-        <button className='btn btn-outline-warning m-2 text-dark'>Ver</button>
-        <button className='btn btn-outline-warning m-2 text-dark'>Administrar</button>
+        <Link to="/ver" className='btn btn-outline-warning m-2 text-dark'>Ver</Link>
+        <Link to="/administrar" className='btn btn-outline-warning m-2 text-dark'>Administrar</Link>
     </div>
   )
 }
