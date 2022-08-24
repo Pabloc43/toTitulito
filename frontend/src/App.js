@@ -9,6 +9,7 @@ import Gestion from "./components/Gestion";
 import Subir from "./components/Subir";
 import { useAppContext } from "./AppProvider";
 import Cookies from "universal-cookie";
+import RutaMal from "./components/RutaMal";
 
 const cookies = new Cookies();
 
@@ -28,8 +29,11 @@ function App() {
         <Navbar/>
         <div className="container p-4">
           <Switch>
+          {/*<Route path="*" component={RutaMal} />*/}
+
             <Route path="/about" component={About} />
             <Route path="/coso" component={Users} />
+
             {sesion ? 
             <>
               <Route path="/gestion" component={Gestion} />
@@ -43,6 +47,7 @@ function App() {
               <Route path="/">
                 <Inicio></Inicio>
               </Route>
+              
               <Redirect to={'/'}>
               </Redirect>
             </>
